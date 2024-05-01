@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<link rel="stylesheet" type="text/css" href="webjars/bootstrap/4.3.1/css/bootstrap.min.css" />
+<head>
+<meta charset="utf-8">
+<title>Liste des Plantes</title>
+</head>
+<body>
+	<div th:replace="template"></div>
+<div class="container mt-5">
+<div class="card">
+ <div class="card-header">
+ Liste des 	Plantes
+ </div>
+ <div class="card-body">
+
+ <table class="table table-striped">
+ <tr>
+ <th>ID</th><th>Nom Plante</th><th>Couleur</th>
+ </tr>
+ <tr th:each="p:${plantes.content}">
+ <td th:text="${p.idPlante}"></td>
+ <td th:text="${p.nomPlante}"></td>
+ <td th:text="${p.couleur}"></td>
+ <td><a class="btn btn-danger"  onclick="return confirm('Etes-vous sûr ?')" th:href="@{supprimerPlante(id=${p.idPlante},page=${currentPage},size=${size})}">Supprimer</a></td>
+
+ </tr>
+ </table>
+ <ul class="nav nav-pills">
+  <li th:each="page,status:${pages}">
+  <a th:class="${status.index==currentPage?'btn btn-primary':'btn' }"
+  th:href="@{ ListePlantes(page=${status.index}, size=${size} ) }"
+  th:text="${status.index }"></a>
+  </li>
+  </ul>
+ </div>
+</div>
+</div>
+</body>
+</html>
